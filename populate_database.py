@@ -18,7 +18,7 @@ openai.api_key = os.environ['OPENAI_API_KEY']
 
 
 CHROMA_PATH = "chroma"
-DATA_PATH = "data/"
+DATA_PATH = "data"
 
 def main():
     # Check if the database should be cleared (using the --clear flag).
@@ -42,8 +42,8 @@ def load_documents():
 def split_documents(documents: list[Document]):
     # split the documents into chunks
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1600,
-        chunk_overlap=160,
+        chunk_size=800,
+        chunk_overlap=80,
         length_function=len,
         is_separator_regex=False,
     )

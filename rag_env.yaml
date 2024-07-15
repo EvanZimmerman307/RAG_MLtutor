@@ -1,0 +1,15 @@
+name: rag_env
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  #- onnxruntime
+  - python-dotenv # For reading environment variables stored in .env file
+  - langchain
+  - langchain-community
+  - langchain-openai # For embeddings 
+  - langchain-chroma # for Chroma
+  - pypdf
+  - chromadb # Vector storage
+  - openai # For embeddings
+  #- tiktoken # For embeddings 

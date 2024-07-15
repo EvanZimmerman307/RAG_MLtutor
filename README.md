@@ -1,6 +1,6 @@
-# AI ML tutor powered by RAG
+# AI ML Tutor Powered by RAG
 
-# Project Setup Instructions
+## Project Setup Instructions
 
 Follow these steps to set up your project environment:
 
@@ -17,7 +17,7 @@ Follow these steps to set up your project environment:
 3. **Create the Conda Environment**
    - Create the Conda environment using the provided YAML file:
      ```bash
-     conda env create -f environment.yaml
+     conda env create -f rag_env.yaml
      ```
 
 4. **Activate the Conda Environment**
@@ -38,4 +38,11 @@ Follow these steps to set up your project environment:
      ```bash
      python populate_database.py --reset
      ```
+
+7. **Query GPT-4 with Relevant Documents from the Chroma Database**
+   - Run the following command to query GPT-4 with your prompt and relevant documents:
+     ```bash
+     python query_data.py "What is gradient descent?"
+     ```
+
 
