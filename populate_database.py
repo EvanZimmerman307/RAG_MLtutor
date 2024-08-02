@@ -11,17 +11,14 @@ from dotenv import load_dotenv
 
 # Load environment variables. Assumes that project contains .env file with API keys
 load_dotenv()
-#---- Set OpenAI API key 
-# Change environment variable name from "OPENAI_API_KEY" to the name given in 
-# your .env file.
+# Set OpenAI API key. Change environment variable name from "OPENAI_API_KEY" to the name given in your .env file.
 openai.api_key = os.environ['OPENAI_API_KEY']
-
 
 CHROMA_PATH = "chroma"
 DATA_PATH = "data"
 
 def main():
-    # Check if the database should be cleared (using the --clear flag).
+    # Check if the database should be cleared (using the --reset flag).
     parser = argparse.ArgumentParser()
     parser.add_argument("--reset", action="store_true", help="Reset the database.")
     args = parser.parse_args()
@@ -35,12 +32,12 @@ def main():
     add_to_chroma(chunks)
 
 def load_documents():
-    # load documents from the data directory
+    # Load documents from the data directory
     document_loader = PyPDFDirectoryLoader(DATA_PATH)
     return document_loader.load()
 
 def split_documents(documents: list[Document]):
-    # split the documents into chunks
+    # Split the documents into chunks
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=800,
         chunk_overlap=80,
@@ -52,7 +49,7 @@ def split_documents(documents: list[Document]):
 def add_to_chroma(chunks: list[Document]):
     # Load the existing database.
     db = Chroma(
-        collection_name="ml_rag_store", persist_directory=CHROMA_PATH, embedding_function=OpenAIEmbeddings()
+        collection_name="cfp_rag_store", persist_directory=CHROMA_PATH, embedding_function=OpenAIEmbeddings()
     )
 
     # Calculate Page IDs.
@@ -73,14 +70,11 @@ def add_to_chroma(chunks: list[Document]):
         print(f"👉 Adding new documents: {len(new_chunks)}")
         new_chunk_ids = [chunk.metadata["id"] for chunk in new_chunks]
         db.add_documents(new_chunks, ids=new_chunk_ids)
-        # db.persist() persist() no longer supported, done automatically
     else:
         print("✅ No new documents to add")
 
-
 def calculate_chunk_ids(chunks):
-
-    # This will create IDs like "data/monopoly.pdf:6:2"
+    # This will create IDs like "data/financial_report.pdf:6:2"
     # Page Source : Page Number : Chunk Index
 
     last_page_id = None
@@ -106,11 +100,9 @@ def calculate_chunk_ids(chunks):
 
     return chunks
 
-
 def clear_database():
     if os.path.exists(CHROMA_PATH):
         shutil.rmtree(CHROMA_PATH)
-
 
 if __name__ == "__main__":
     main()

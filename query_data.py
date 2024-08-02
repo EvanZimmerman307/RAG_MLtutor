@@ -1,5 +1,4 @@
 import argparse
-# from dataclasses import dataclass
 from langchain_chroma import Chroma
 from langchain_openai import OpenAIEmbeddings
 from langchain_openai import ChatOpenAI
@@ -10,9 +9,7 @@ import os
 
 # Load environment variables. Assumes that project contains .env file with API keys
 load_dotenv()
-#---- Set OpenAI API key 
-# Change environment variable name from "OPENAI_API_KEY" to the name given in 
-# your .env file.
+# Set OpenAI API key. Change environment variable name from "OPENAI_API_KEY" to the name given in your .env file.
 openai.api_key = os.environ['OPENAI_API_KEY']
 
 CHROMA_PATH = "chroma"
@@ -20,7 +17,7 @@ CHROMA_PATH = "chroma"
 PROMPT_TEMPLATE = """
 Answer the question based only on the following context. 
 If the context does not contain information regarding the query, state that the query is not relevant to
-machine learning.:
+financial planning:
 
 {context}
 
@@ -38,13 +35,12 @@ def main():
 
     # Prepare the DB.
     embedding_function = OpenAIEmbeddings()
-    db = Chroma(collection_name="ml_rag_store", persist_directory=CHROMA_PATH, embedding_function=embedding_function)
+    db = Chroma(collection_name="cfp_rag_store", persist_directory=CHROMA_PATH, embedding_function=embedding_function)
 
-    
     # Search the DB.
     results = db.similarity_search_with_score(query_text, k=7)
     print(results)
-    if len(results) == 0: #or #results[0][1] < 0.0001:
+    if len(results) == 0:
         print(f"Unable to find matching results.")
         return
     
@@ -59,7 +55,6 @@ def main():
     sources = [doc.metadata.get("id", None) for doc, _score in results]
     formatted_response = f"Response: {response_text}\nSources: {sources}"
     print(formatted_response)
-
 
 if __name__ == "__main__":
     main()
