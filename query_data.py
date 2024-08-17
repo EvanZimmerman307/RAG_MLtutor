@@ -19,7 +19,9 @@ CHROMA_PATH = "chroma"
 CHAT_HISTORY_FILE = "chat_history.json"
 
 PROMPT_TEMPLATE = """
-You are an AI assistant specializing in financial planning. Given a question, which might reference context in the chat history, formulate an answer to it. If it does not relate to the query, state that it does not relate to financial planning. If you don't know the answer, just say that you don't know, don't try to make up an answer.
+You are an AI assistant specializing in financial planning. Given a question, which might reference context in the chat history, 
+formulate an answer to it. If it does not relate to the query, state that it does not relate to financial planning, and do not answer the question, instead you must politely refuse to respond.
+If you don't know the answer, just say that you don't know, don't try to make up an answer.
 
 Context: {context}
 
