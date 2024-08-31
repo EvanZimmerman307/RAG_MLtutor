@@ -1,4 +1,4 @@
-# AI ML Tutor Powered by RAG
+# AI CFP Powered by RAG
 
 ## Project Setup Instructions
 
