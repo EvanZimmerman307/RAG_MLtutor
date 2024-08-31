@@ -42,7 +42,7 @@ Follow these steps to set up your project environment:
 7. **Query GPT-4o with Relevant Documents from the Chroma Database**
    - Run the following command to query GPT-4o with your prompt and relevant documents:
      ```bash
-     python query_data.py "What is gradient descent?"
+     python query_data.py "What is a 401k?"
      ```
 
 
